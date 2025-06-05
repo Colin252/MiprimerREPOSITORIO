@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios registrados</title>
+</head>
+<body>
+<h1>Lista de usuarios</h1>
+<ul id="userList"></ul>
+
+<script>
+    fetch('/api/users')
+        .then(response => response.json())
+        .then(users => {
+            const list = document.getElementById('userList');
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = `${user.name} (${user.email})`;
+                list.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error cargando usuarios:', error));
+</script>
+</body>
+</html>
