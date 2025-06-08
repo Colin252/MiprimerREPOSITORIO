@@ -1,5 +1,6 @@
-# MiprimerREPOSITORIO
-CODIGOABIERTO_ desarrollo web full stack Java y React (TS)_JAVAAPPPROGRAMAS
+# Full Stack Web Development with Java & React | Open Source Projects
+CODIGOABIERTO by Helton Quiroz | Java & React Full Stack Projects
+
 ## Tecnologías utilizadas
 - Java 17
 - Spring Boot
