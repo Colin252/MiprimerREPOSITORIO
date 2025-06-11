@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crear Rutina - FitFlow</title>
+</head>
+<body>
+<h2>Crear Rutina 💪</h2>
+<form id="rutinaForm">
+  <label for="nombre">Nombre de la rutina:</label>
+  <input type="text" id="nombre" name="nombre" required><br><br>
+
+  <label for="descripcion">Descripción:</label>
+  <input type="text" id="descripcion" name="descripcion" required><br><br>
+
+  <button type="submit">Guardar Rutina</button>
+</form>
+
+<p id="mensaje"></p>
+
+<script>
+  const form = document.getElementById('rutinaForm');
+  const mensaje = document.getElementById('mensaje');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nombre = form.nombre.value;
+    const descripcion = form.descripcion.value;
+
+    try {
+      const response = await fetch('http://localhost:8080/api/routines', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre, descripcion })
+      });
+
+      if (response.ok) {
+        mensaje.textContent = 'Rutina creada exitosamente ✅';
+        mensaje.style.color = 'green';
+        form.reset();
+      } else {
+        mensaje.textContent = 'Error al crear rutina ❌';
+        mensaje.style.color = 'red';
+      }
+    } catch (err) {
+      mensaje.textContent = 'Error de conexión al servidor';
+      mensaje.style.color = 'red';
+    }
+  });
+</script>
+</body>
+</html>

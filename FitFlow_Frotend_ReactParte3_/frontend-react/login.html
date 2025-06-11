@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login FitFlow</title>
+</head>
+<body>
+<h2>Login FitFlow</h2>
+<form id="loginForm">
+    <label for="username">Usuario:</label>
+    <input type="text" id="username" name="username" required /><br /><br />
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required /><br /><br />
+    <button type="submit">Ingresar</button>
+</form>
+<p id="result"></p>
+
+<script>
+    const form = document.getElementById('loginForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = form.username.value;
+        const password = form.password.value;
+
+        try {
+            const response = await fetch('http://localhost:8080/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                const isValid = await response.json();
+                if (isValid) {
+                    result.textContent = 'Login exitoso 😊';
+                    result.style.color = 'green';
+                } else {
+                    result.textContent = 'Usuario o contraseña incorrectos ❌';
+                    result.style.color = 'red';
+                }
+            } else {
+                result.textContent = 'Error en la petición al servidor.';
+                result.style.color = 'red';
+            }
+        } catch (error) {
+            result.textContent = 'Error al conectar con el servidor.';
+            result.style.color = 'red';
+        }
+    });
+</script>
+</body>
+</html>
